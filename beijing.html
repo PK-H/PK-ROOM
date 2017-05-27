@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.magnifier{
+				width: 100px;
+				height: 100px;
+				border: 1px solid saddlebrown;
+				position: absolute;
+				z-index: -1;
+			}
+			.desk{
+				width: 540px;
+				height: 300px;
+				border: 1px solid brown;
+				background-image: url(img/900x500_2.jpg);
+				background-size: 540px 300px;
+				background-repeat: no-repeat;
+			}
+			.show{
+				width: 100px;
+				height: 100px;
+				border: 1px solid brown;
+				background-image: url(img/900x500_2.jpg);
+				background-size: 540px 300px;
+				transform: scale(3);
+				background-repeat: no-repeat;
+				display: none;
+				position: absolute;
+				top: 420px;
+				left:220px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="magnifier"></div>
+		<div class="desk"></div>
+		<div class="show"></div>
+		<script type="text/javascript">
+		var desk = document.querySelector(".desk");
+		var show = document.querySelector(".show");
+		var glass = document.querySelector(".magnifier");
+			
+			desk.onmousemove = function(ev){
+				show.style.display = "block";
+				var e = ev || window.event;
+				glass.style.left = e.clientX - 50+ "px"; 
+				glass.style.top = e.clientY - 50 + "px"; 
+				if(glass.offsetLeft<0){
+					glass.style.left = "0px"
+				}
+				if(glass.offsetLeft>(desk.offsetWidth - glass.offsetWidth)){
+					glass.style.left = desk.offsetWidth - glass.offsetWidth + "px";
+				}
+				if(glass.offsetTop<0){
+					glass.style.top = "0px";
+				}
+				if(glass.offsetTop>(desk.offsetHeight-glass.offsetHeight)){
+					glass.style.top = desk.offsetHeight-glass.offsetHeight  + "px";
+				}
+				show.style.backgroundPosition = (-glass.offsetLeft)+"px " + (-glass.offsetTop)+"px";
+				
+			}	
+			desk.onmouseout = function(){
+				show.style.display = "none";
+			}
+	</script>
+	</body>
+</html>
